@@ -1,0 +1,506 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A94F826F1B1FFA2A0034AE05 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A94F826E1B1FFA2A0034AE05 /* main.m */; };
+		A94F82721B1FFA2A0034AE05 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A94F82711B1FFA2A0034AE05 /* AppDelegate.m */; };
+		A94F82751B1FFA2A0034AE05 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94F82741B1FFA2A0034AE05 /* FirstViewController.m */; };
+		A94F82781B1FFA2A0034AE05 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94F82771B1FFA2A0034AE05 /* SecondViewController.m */; };
+		A94F827B1B1FFA2A0034AE05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A94F82791B1FFA2A0034AE05 /* Main.storyboard */; };
+		A94F827D1B1FFA2A0034AE05 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A94F827C1B1FFA2A0034AE05 /* Images.xcassets */; };
+		A94F82801B1FFA2A0034AE05 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A94F827E1B1FFA2A0034AE05 /* LaunchScreen.xib */; };
+		A94F828C1B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A94F828B1B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests.m */; };
+		A94F82971B1FFBD20034AE05 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94F82961B1FFBD20034AE05 /* SplashViewController.m */; };
+		E2AF2764BAB81EA012EAD81D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49080D3EFD422729A820F862 /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A94F82861B1FFA2A0034AE05 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A94F82611B1FFA2A0034AE05 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A94F82681B1FFA2A0034AE05;
+			remoteInfo = ObjectiveGeocoreDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		49080D3EFD422729A820F862 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A94F82691B1FFA2A0034AE05 /* ObjectiveGeocoreDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectiveGeocoreDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A94F826D1B1FFA2A0034AE05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A94F826E1B1FFA2A0034AE05 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A94F82701B1FFA2A0034AE05 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A94F82711B1FFA2A0034AE05 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A94F82731B1FFA2A0034AE05 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		A94F82741B1FFA2A0034AE05 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		A94F82761B1FFA2A0034AE05 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		A94F82771B1FFA2A0034AE05 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		A94F827A1B1FFA2A0034AE05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A94F827C1B1FFA2A0034AE05 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A94F827F1B1FFA2A0034AE05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		A94F82851B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjectiveGeocoreDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A94F828A1B1FFA2A0034AE05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A94F828B1B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveGeocoreDemoTests.m; sourceTree = "<group>"; };
+		A94F82951B1FFBD20034AE05 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
+		A94F82961B1FFBD20034AE05 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
+		BA9EB4DB14EB1B8336D1F72B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		DA7ACD474099692FAE6183B6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A94F82661B1FFA2A0034AE05 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2AF2764BAB81EA012EAD81D /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A94F82821B1FFA2A0034AE05 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		051C3AB50820FA07497370B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				49080D3EFD422729A820F862 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		960B2DB46F29170B242D3FC7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BA9EB4DB14EB1B8336D1F72B /* Pods.debug.xcconfig */,
+				DA7ACD474099692FAE6183B6 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A94F82601B1FFA2A0034AE05 = {
+			isa = PBXGroup;
+			children = (
+				A94F826B1B1FFA2A0034AE05 /* ObjectiveGeocoreDemo */,
+				A94F82881B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests */,
+				A94F826A1B1FFA2A0034AE05 /* Products */,
+				960B2DB46F29170B242D3FC7 /* Pods */,
+				051C3AB50820FA07497370B8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A94F826A1B1FFA2A0034AE05 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A94F82691B1FFA2A0034AE05 /* ObjectiveGeocoreDemo.app */,
+				A94F82851B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A94F826B1B1FFA2A0034AE05 /* ObjectiveGeocoreDemo */ = {
+			isa = PBXGroup;
+			children = (
+				A94F82701B1FFA2A0034AE05 /* AppDelegate.h */,
+				A94F82711B1FFA2A0034AE05 /* AppDelegate.m */,
+				A94F82951B1FFBD20034AE05 /* SplashViewController.h */,
+				A94F82961B1FFBD20034AE05 /* SplashViewController.m */,
+				A94F82731B1FFA2A0034AE05 /* FirstViewController.h */,
+				A94F82741B1FFA2A0034AE05 /* FirstViewController.m */,
+				A94F82761B1FFA2A0034AE05 /* SecondViewController.h */,
+				A94F82771B1FFA2A0034AE05 /* SecondViewController.m */,
+				A94F82791B1FFA2A0034AE05 /* Main.storyboard */,
+				A94F827E1B1FFA2A0034AE05 /* LaunchScreen.xib */,
+				A94F827C1B1FFA2A0034AE05 /* Images.xcassets */,
+				A94F826C1B1FFA2A0034AE05 /* Supporting Files */,
+			);
+			path = ObjectiveGeocoreDemo;
+			sourceTree = "<group>";
+		};
+		A94F826C1B1FFA2A0034AE05 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A94F826D1B1FFA2A0034AE05 /* Info.plist */,
+				A94F826E1B1FFA2A0034AE05 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A94F82881B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				A94F828B1B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests.m */,
+				A94F82891B1FFA2A0034AE05 /* Supporting Files */,
+			);
+			path = ObjectiveGeocoreDemoTests;
+			sourceTree = "<group>";
+		};
+		A94F82891B1FFA2A0034AE05 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A94F828A1B1FFA2A0034AE05 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A94F82681B1FFA2A0034AE05 /* ObjectiveGeocoreDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A94F828F1B1FFA2A0034AE05 /* Build configuration list for PBXNativeTarget "ObjectiveGeocoreDemo" */;
+			buildPhases = (
+				59CB9B2AA914E0781ED67340 /* Check Pods Manifest.lock */,
+				A94F82651B1FFA2A0034AE05 /* Sources */,
+				A94F82661B1FFA2A0034AE05 /* Frameworks */,
+				A94F82671B1FFA2A0034AE05 /* Resources */,
+				15D0ACA3BDC27E243376B8DE /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ObjectiveGeocoreDemo;
+			productName = ObjectiveGeocoreDemo;
+			productReference = A94F82691B1FFA2A0034AE05 /* ObjectiveGeocoreDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A94F82841B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A94F82921B1FFA2A0034AE05 /* Build configuration list for PBXNativeTarget "ObjectiveGeocoreDemoTests" */;
+			buildPhases = (
+				A94F82811B1FFA2A0034AE05 /* Sources */,
+				A94F82821B1FFA2A0034AE05 /* Frameworks */,
+				A94F82831B1FFA2A0034AE05 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A94F82871B1FFA2A0034AE05 /* PBXTargetDependency */,
+			);
+			name = ObjectiveGeocoreDemoTests;
+			productName = ObjectiveGeocoreDemoTests;
+			productReference = A94F82851B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A94F82611B1FFA2A0034AE05 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = MapMotion;
+				TargetAttributes = {
+					A94F82681B1FFA2A0034AE05 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					A94F82841B1FFA2A0034AE05 = {
+						CreatedOnToolsVersion = 6.3.2;
+						TestTargetID = A94F82681B1FFA2A0034AE05;
+					};
+				};
+			};
+			buildConfigurationList = A94F82641B1FFA2A0034AE05 /* Build configuration list for PBXProject "ObjectiveGeocoreDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A94F82601B1FFA2A0034AE05;
+			productRefGroup = A94F826A1B1FFA2A0034AE05 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A94F82681B1FFA2A0034AE05 /* ObjectiveGeocoreDemo */,
+				A94F82841B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A94F82671B1FFA2A0034AE05 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A94F827B1B1FFA2A0034AE05 /* Main.storyboard in Resources */,
+				A94F82801B1FFA2A0034AE05 /* LaunchScreen.xib in Resources */,
+				A94F827D1B1FFA2A0034AE05 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A94F82831B1FFA2A0034AE05 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		15D0ACA3BDC27E243376B8DE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		59CB9B2AA914E0781ED67340 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A94F82651B1FFA2A0034AE05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A94F82971B1FFBD20034AE05 /* SplashViewController.m in Sources */,
+				A94F82781B1FFA2A0034AE05 /* SecondViewController.m in Sources */,
+				A94F82721B1FFA2A0034AE05 /* AppDelegate.m in Sources */,
+				A94F82751B1FFA2A0034AE05 /* FirstViewController.m in Sources */,
+				A94F826F1B1FFA2A0034AE05 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A94F82811B1FFA2A0034AE05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A94F828C1B1FFA2A0034AE05 /* ObjectiveGeocoreDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A94F82871B1FFA2A0034AE05 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A94F82681B1FFA2A0034AE05 /* ObjectiveGeocoreDemo */;
+			targetProxy = A94F82861B1FFA2A0034AE05 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A94F82791B1FFA2A0034AE05 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A94F827A1B1FFA2A0034AE05 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A94F827E1B1FFA2A0034AE05 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A94F827F1B1FFA2A0034AE05 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A94F828D1B1FFA2A0034AE05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		A94F828E1B1FFA2A0034AE05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A94F82901B1FFA2A0034AE05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA9EB4DB14EB1B8336D1F72B /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ObjectiveGeocoreDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A94F82911B1FFA2A0034AE05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA7ACD474099692FAE6183B6 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ObjectiveGeocoreDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A94F82931B1FFA2A0034AE05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ObjectiveGeocoreDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ObjectiveGeocoreDemo.app/ObjectiveGeocoreDemo";
+			};
+			name = Debug;
+		};
+		A94F82941B1FFA2A0034AE05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ObjectiveGeocoreDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ObjectiveGeocoreDemo.app/ObjectiveGeocoreDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A94F82641B1FFA2A0034AE05 /* Build configuration list for PBXProject "ObjectiveGeocoreDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A94F828D1B1FFA2A0034AE05 /* Debug */,
+				A94F828E1B1FFA2A0034AE05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A94F828F1B1FFA2A0034AE05 /* Build configuration list for PBXNativeTarget "ObjectiveGeocoreDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A94F82901B1FFA2A0034AE05 /* Debug */,
+				A94F82911B1FFA2A0034AE05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A94F82921B1FFA2A0034AE05 /* Build configuration list for PBXNativeTarget "ObjectiveGeocoreDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A94F82931B1FFA2A0034AE05 /* Debug */,
+				A94F82941B1FFA2A0034AE05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A94F82611B1FFA2A0034AE05 /* Project object */;
+}
