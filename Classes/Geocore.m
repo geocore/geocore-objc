@@ -380,6 +380,20 @@ NSString * const MMGErrorDomain = @"MMGErrorDomain";
     }];
 }
 
+- (PMKPromise *)POST:(NSData *)data withMimeType:(NSString *)mimeType toPath:(NSString *)path {
+    return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        [manager POST:[Geocore path:path]
+           parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+               [formData appendPartWithFileData:data name:@"data" fileName:@"data" mimeType:mimeType];
+           } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               resolve([self processResponse:responseObject ofType:[MMGGenericResult class]]);
+           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               resolve(error);
+           }];
+    }];
+}
+
 - (PMKPromise *)login {
     [self loadUserDefault];
     if (self.user) {

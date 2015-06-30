@@ -23,12 +23,15 @@
 @property (nonatomic, strong) NSString *customDataKey;
 @property (nonatomic, assign) NSUInteger page;
 @property (nonatomic, assign) NSUInteger numberPerPage;
+@property (nonatomic, assign) BOOL unlimitedRecords;
 
 @end
 
 @interface MMGObjectBinaryOperation()
 
 @property (nonatomic, strong) NSString *key;
+@property (nonatomic, strong) NSString *mimeType;
+@property (nonatomic, strong) NSData *data;
 
 @end
 
@@ -112,11 +115,26 @@
 }
 
 - (PMKPromise *)urlForKey:(NSString *)key {
-    return [[[[MMGObjectBinaryOperation operation] withId:self.id] withKey:key] url];
+    return [[[[MMGObjectBinaryOperation operation]
+                                        withId:self.id]
+                                        withKey:key]
+                                        url];
 }
 
 - (PMKPromise *)imageForKey:(NSString *)key {
-    return [[[[MMGObjectBinaryOperation operation] withId:self.id] withKey:key] image];
+    return [[[[MMGObjectBinaryOperation operation]
+                                        withId:self.id]
+                                        withKey:key]
+                                        image];
+}
+
+- (PMKPromise *)upload:(NSData *)data withMimeType:(NSString *)mimeType forKey:(NSString *)key {
+    return [[[[[[MMGObjectBinaryOperation operation]
+                                          withId:self.id]
+                                          withKey:key]
+                                          withMimeType:mimeType]
+                                          withData:data]
+                                          upload];
 }
 
 @end
@@ -192,6 +210,13 @@
     return [MMGObjectQuery new];
 }
 
+- (id)init {
+    if (self = [super init]) {
+        self.unlimitedRecords = NO;
+    }
+    return self;
+}
+
 - (instancetype)withName:(NSString *)name {
     self.name = name;
     return self;
@@ -218,18 +243,40 @@
     return self;
 }
 
+- (instancetype)unlimited {
+    self.unlimitedRecords = YES;
+    return self;
+}
+
 - (NSDictionary *)buildQueryParameters {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[super buildQueryParameters]];
-    if (self.page > 0) {
-        [dict setObject:@(self.page) forKey:@"page"];
-    }
-    if (self.numberPerPage > 0) {
-        [dict setObject:@(self.numberPerPage) forKey:@"num"];
+    if (self.unlimitedRecords) {
+        [dict setObject:@(0) forKey:@"num"];
+    } else {
+        if (self.page > 0) {
+            [dict setObject:@(self.page) forKey:@"page"];
+        }
+        if (self.numberPerPage > 0) {
+            [dict setObject:@(self.numberPerPage) forKey:@"num"];
+        }
     }
     if (self.fromDate) {
         [dict setObject:[[Geocore dateFormatter] stringFromDate:self.fromDate] forKey:@"from_date"];
     }
     return dict;
+}
+
+- (PMKPromise *)getObjectOfType:(Class)clazz withServicePath:(NSString *)servicePath {
+    NSString *path = [super buildPath:servicePath];
+    if (path) {
+        return [[Geocore instance] GET:path resultClass:clazz];
+    } else {
+        return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"id not set"}]];
+    }
+}
+
+- (PMKPromise *)get {
+    return [self getObjectOfType:[MMGObject class] withServicePath:@"/objs"];
 }
 
 @end
@@ -242,6 +289,16 @@
 
 - (instancetype)withKey:(NSString *)key {
     self.key = key;
+    return self;
+}
+
+- (instancetype)withData:(NSData *)data {
+    self.data = data;
+    return self;
+}
+
+- (instancetype)withMimeType:(NSString *)mimeType {
+    self.mimeType = mimeType;
     return self;
 }
 
@@ -303,6 +360,20 @@
             resolve(error);
         });
     }];
+}
+
+- (PMKPromise *)upload {
+    if (!self.key || !self.mimeType || !self.data) {
+        return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"key, mimeType, or data not set"}]];
+    }
+    NSString *path = [super buildPath:@"/objs" withIdForSubPath:[NSString stringWithFormat:@"/bins/%@", _key]];
+    if (path) {
+        return [[Geocore instance] POST:_data
+                           withMimeType:_mimeType
+                                 toPath:path];
+    } else {
+        return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"id not set"}]];
+    }
 }
 
 @end

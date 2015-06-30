@@ -27,6 +27,7 @@
 - (PMKPromise *)all;
 - (PMKPromise *)tags;
 - (PMKPromise *)items;
+- (PMKPromise *)checkins;
 
 @end
 
@@ -46,6 +47,7 @@
 - (MMGUserTagOperation *)tagOperation;
 - (PMKPromise *)queryTags;
 - (PMKPromise *)queryItems;
+- (PMKPromise *)queryCheckins;
 
 - (PMKPromise *)logLastLatitude:(double)latitude longitude:(double)longitude accuracy:(double)accuracy;
 - (PMKPromise *)logLatitude:(double)latitude longitude:(double)longitude accuracy:(double)accuracy;

@@ -71,6 +71,21 @@
     }
 }
 
+- (PMKPromise *)checkins {
+    NSString *path = [self buildPath:@"/users" withIdForSubPath:@"/checkins"];
+    if (path) {
+        return [[Geocore instance] GET:path
+                            parameters:@{@"num": @(0)} // TODO: implement detail constraints
+                           resultClass:[MMGPlaceCheckin class]];
+    } else {
+        return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"id not set"}]];
+    }
+}
+
+- (PMKPromise *)get {
+    return [self getObjectOfType:[MMGUser class] withServicePath:@"/users"];
+}
+
 @end
 
 @implementation MMGUser
@@ -107,8 +122,7 @@
 }
 
 - (PMKPromise *)save {
-    return [[Geocore instance] POST:@"/users"
-                         parameters:nil
+    return [[Geocore instance] POST:self.id ? [NSString stringWithFormat:@"/users/%@", self.id] : @"/users"
                                body:[self toJSON]
                         resultClass:[MMGUser class]];
 }
@@ -123,6 +137,10 @@
 
 - (PMKPromise *)queryItems {
     return [[[MMGUserQuery query] withId:self.id] items];
+}
+
+- (PMKPromise *)queryCheckins {
+    return [[[MMGUserQuery query] withId:self.id] checkins];
 }
 
 - (PMKPromise *)logLastLatitude:(double)latitude longitude:(double)longitude accuracy:(double)accuracy {
@@ -167,7 +185,7 @@
         if (preferredLanguage) {
             [self setCustomDataValue:preferredLanguage forKey:MMG_SETKEY_USER_PUSH_LANG];
         }
-        return [[Geocore instance] POST:[NSString stringWithFormat:@"/users/%@", self.id] body:[self toJSON] resultClass:[MMGUser class]];
+        return [self save];
     } else {
         return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
             resolve(self);
@@ -179,7 +197,7 @@
     BOOL enabledUpdated = ![[self.customData objectForKey:MMG_SETKEY_USER_PUSH_ENABLED] isEqualToString:enable?@"true":@"false"];
     if (enabledUpdated) {
         [self setCustomDataValue:enable?@"true":@"false" forKey:MMG_SETKEY_USER_PUSH_ENABLED];
-        return [[Geocore instance] POST:[NSString stringWithFormat:@"/users/%@", self.id] body:[self toJSON] resultClass:[MMGUser class]];
+        return [self save];
     } else {
         return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
             resolve(self);

@@ -27,6 +27,10 @@
 - (instancetype)havingCustomDataValue:(NSString *)value forKey:(NSString *)key;
 - (instancetype)page:(NSUInteger)page;
 - (instancetype)numberPerPage:(NSUInteger)numberPerPage;
+- (instancetype)unlimited;
+
+- (PMKPromise *)getObjectOfType:(Class)clazz withServicePath:(NSString *)servicePath;
+- (PMKPromise *)get;
 
 @end
 
@@ -35,9 +39,14 @@
 + (instancetype)operation;
 
 - (instancetype)withKey:(NSString *)key;
+
 - (PMKPromise *)allKeys;
 - (PMKPromise *)url;
 - (PMKPromise *)image;
+
+- (instancetype)withData:(NSData *)data;
+- (instancetype)withMimeType:(NSString *)mimeType;
+- (PMKPromise *)upload;
 
 @end
 
@@ -61,6 +70,7 @@
 - (PMKPromise *)binaryKeys;
 - (PMKPromise *)urlForKey:(NSString *)key;
 - (PMKPromise *)imageForKey:(NSString *)key;
+- (PMKPromise *)upload:(NSData *)data withMimeType:(NSString *)mimeType forKey:(NSString *)key;
 
 @end
 

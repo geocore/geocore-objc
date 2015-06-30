@@ -59,6 +59,10 @@
           preProcess:(id (^)(id))preProcess
          postProcess:(id (^)(id))postProcess;
 
+- (PMKPromise *)POST:(NSData *)data
+        withMimeType:(NSString *)mimeType
+              toPath:(NSString *)path;
+
 - (PMKPromise *)PUT:(NSString *)path
                body:(NSDictionary *)body
         resultClass:(Class)clazz;

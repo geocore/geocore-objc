@@ -70,14 +70,14 @@
 
 - (PMKPromise *)adjustAmount:(NSInteger)amount {
     return [[Geocore instance] POST:amount > 0 ?
-                                    [NSString stringWithFormat:@"/users/%@/items/%@/amount/+%ld", [Geocore instance].user.id, self.id, (long)amount] :
-                                    [NSString stringWithFormat:@"/users/%@/items/%@/amount/-%ld", [Geocore instance].user.id, self.id, (long)amount]
+                                    [NSString stringWithFormat:@"/users/%@/items/%@/amount/+%ld", [Geocore instance].user.id, self.id, amount] :
+                                    [NSString stringWithFormat:@"/users/%@/items/%@/amount/-%ld", [Geocore instance].user.id, self.id, amount]
                                body:nil
                         resultClass:[MMGUserItem class]];
 }
 
 - (PMKPromise *)setAmount:(NSInteger)amount {
-    return [[Geocore instance] POST:[NSString stringWithFormat:@"/users/%@/items/%@/amount/%ld", [Geocore instance].user.id, self.id, (long)amount]
+    return [[Geocore instance] POST:[NSString stringWithFormat:@"/users/%@/items/%@/amount/%ld", [Geocore instance].user.id, self.id, amount]
                                body:nil
                         resultClass:[MMGUserItem class]];
 }
