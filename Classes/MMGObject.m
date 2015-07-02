@@ -339,19 +339,19 @@
     }
 }
 
-- (PMKPromise *)image {
+- (PMKPromise *)binaryWithSerializer:(AFHTTPResponseSerializer <AFURLResponseSerialization> *)responseSerializer {
     return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
         [self url]
         .then(^(NSString *url) {
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            manager.responseSerializer = [AFImageResponseSerializer serializer];
+            manager.responseSerializer = responseSerializer;
             [manager GET:url
               parameters:nil
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                      resolve(responseObject);
                  }
                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     MMG_DEBUG(@"[ERROR] Error getting image: %@", error);
+                     MMG_DEBUG(@"[ERROR] Error getting data: %@", error);
                      resolve(error);
                  }
              ];
@@ -360,6 +360,14 @@
             resolve(error);
         });
     }];
+}
+
+- (PMKPromise *)binary {
+    return [self binaryWithSerializer:[AFHTTPResponseSerializer serializer]];
+}
+
+- (PMKPromise *)image {
+    return [self binaryWithSerializer:[AFImageResponseSerializer serializer]];
 }
 
 - (PMKPromise *)upload {

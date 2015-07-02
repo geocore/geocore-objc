@@ -80,6 +80,7 @@ typedef NS_ENUM (NSInteger, MMGErrorCode) {
 - (PMKPromise *)login;
 - (PMKPromise *)loginWithUserId:(NSString *)userId password:(NSString *)password;
 - (PMKPromise *)loginWithFacebookId:(NSString *)facebookId name:(NSString *)name;
+- (PMKPromise *)autoLoginWithDefaultUser;
 - (PMKPromise *)autoLoginWithFacebookId:(NSString *)facebookId name:(NSString *)name;
 
 @end

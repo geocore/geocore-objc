@@ -117,6 +117,43 @@
     return self;
 }
 
++ (NSString *)userIdWithSuffix:(NSString *)suffix {
+    if ([Geocore instance].projectId) {
+        return [Geocore buildIdWithProjectSuffixWithPrefix:@"USE" suffix:suffix];
+    } else {
+        return suffix;
+    }
+}
+
++ (NSString *)defaultId {
+    return [self userIdWithSuffix:[self defaultName]];
+}
+
++ (NSString *)defaultName {
+#if (TARGET_IPHONE_SIMULATOR)
+    return @"IOS_SIMULATOR";
+#else
+    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+#endif
+}
+
++ (NSString *)defaultEmail {
+    return [NSString stringWithFormat:@"%@@geocore.jp", [self defaultName]];
+}
+
++ (NSString *)defaultPassword {
+    return [[self defaultId] reverse];
+}
+
++ (instancetype)defaultUser {
+    MMGUser *user = [MMGUser new];
+    user.id = [self defaultId];
+    user.name = [self defaultName];
+    user.email = [self defaultEmail];
+    user.password = [self defaultPassword];
+    return user;
+}
+
 + (MMGUserQuery *)query {
     return [MMGUserQuery query];
 }

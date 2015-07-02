@@ -38,6 +38,12 @@
 @property (readonly, nonatomic, strong) NSDate *lastLocationTime;
 @property (readonly, nonatomic, strong) MMGPoint *lastLocation;
 
++ (NSString *)defaultId;
++ (NSString *)defaultName;
++ (NSString *)defaultEmail;
++ (NSString *)defaultPassword;
++ (instancetype)defaultUser;
+
 - (instancetype)fromFacebookId:(NSString *)facebookId name:(NSString *)name;
 
 + (MMGUserQuery *)query;

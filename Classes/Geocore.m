@@ -474,6 +474,37 @@ NSString * const MMGErrorDomain = @"MMGErrorDomain";
     }];
 }
 
+- (PMKPromise *)autoLoginWithDefaultUser {
+    return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
+        // try logging in
+        [self loginWithUserId:[MMGUser defaultId] password:[MMGUser defaultPassword]]
+        .then(^(NSString *token) {
+            resolve(token);
+        })
+        .catch(^(NSError *loginError) {
+            if ([@"Auth.0001" isEqualToString:[loginError.userInfo objectForKey:@"code"]]) {
+                // oops! try to register first
+                [[MMGUser defaultUser] register]
+                .then(^(MMGUser *registeredUser) {
+                    MMG_DEBUG(@"[DEBUG] user ID: %@, registered successfully", registeredUser.id)
+                    // now that the user is registered, login
+                    return [self loginWithUserId:[MMGUser defaultId] password:[MMGUser defaultPassword]];
+                })
+                .then(^(MMGUser *registeredUser) {
+                    MMG_DEBUG(@"[DEBUG] registered user ID: %@ logged in successfully", registeredUser.id)
+                    resolve(registeredUser);
+                })
+                .catch(^(NSError *registerError) {
+                    resolve(registerError);
+                });
+            } else {
+                // unexpected error
+                resolve(loginError);
+            }
+        });
+    }];
+}
+
 @end
 
 @implementation NSDateFormatter(Geocore)

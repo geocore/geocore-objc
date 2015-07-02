@@ -42,6 +42,7 @@
 
 - (PMKPromise *)allKeys;
 - (PMKPromise *)url;
+- (PMKPromise *)binary;
 - (PMKPromise *)image;
 
 - (instancetype)withData:(NSData *)data;
