@@ -151,6 +151,8 @@ NSString * const MMGErrorDomain = @"MMGErrorDomain";
             } else {
                 return resultArray;
             }
+        } else if ([resultObj isKindOfClass:[NSNull class]]) {
+            return nil;
         } else {
             // singular result
             if (clazz) {

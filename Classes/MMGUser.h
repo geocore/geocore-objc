@@ -63,4 +63,26 @@
                                          enable:(BOOL)enable;
 - (PMKPromise *)pushNotificationEnable:(BOOL)enable;
 
++ (PMKPromise *)connectToPeer:(MMGUser *)peer;
++ (PMKPromise *)disconnectFromPeer:(MMGUser *)peer;
++ (PMKPromise *)breakConnectionToPeer:(MMGUser *)peer permanently:(BOOL)permanently;
+
++ (PMKPromise *)connections;
++ (PMKPromise *)connectionToPeer:(MMGUser *)peer;
++ (PMKPromise *)acceptedConnections;
++ (PMKPromise *)pendingConnections;
++ (PMKPromise *)waitingConnections;
+
+@end
+
+@interface MMGUserConnection : MMGRelationship
+
+@property (nonatomic, strong) MMGUser *peer;
+@property (nonatomic, assign) BOOL accepted;
+@property (nonatomic, assign) BOOL peerAccepted;
+
+- (PMKPromise *)disconnect;
+- (PMKPromise *)accept;
+- (PMKPromise *)reject;
+
 @end
