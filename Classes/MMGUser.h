@@ -69,6 +69,7 @@
 
 + (PMKPromise *)connections;
 + (PMKPromise *)connectionToPeer:(MMGUser *)peer;
++ (PMKPromise *)connectionToPeerWithId:(NSString *)peerId;
 + (PMKPromise *)acceptedConnections;
 + (PMKPromise *)pendingConnections;
 + (PMKPromise *)waitingConnections;

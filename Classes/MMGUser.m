@@ -276,6 +276,12 @@
                        resultClass:[MMGUserConnection class]];
 }
 
++ (PMKPromise *)connectionToPeerWithId:(NSString *)peerId {
+    return [[Geocore instance] GET:[NSString stringWithFormat:@"/users/relationships/%@", peerId]
+                        parameters:nil
+                       resultClass:[MMGUserConnection class]];
+}
+
 + (PMKPromise *)acceptedConnections {
     return [[Geocore instance] GET:@"/users/relationships"
                         parameters:@{@"accepted": @"true", @"accepted_by": @"true"}
