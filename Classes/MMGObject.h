@@ -10,11 +10,29 @@
 
 @interface MMGObjectOperation : NSObject
 
+@property (nonatomic, strong) NSString *id;
+
 - (instancetype)withId:(NSString *)id;
 
 - (NSString *)buildPath:(NSString *)servicePath;
 - (NSString *)buildPath:(NSString *)servicePath withIdForSubPath:(NSString *)subPath;
 - (NSDictionary *)buildQueryParameters;
+
+@end
+
+@interface MMGRelationshipOperation : NSObject
+
+@property (nonatomic, strong) NSString *id1;
+@property (nonatomic, strong) NSString *id2;
+@property (nonatomic, strong) NSDictionary *customData;
+
+- (instancetype)withObject1Id:(NSString *)id;
+- (instancetype)withObject2Id:(NSString *)id;
+- (instancetype)withCustomData:(NSDictionary *)dictionary;
+
+- (NSString *)buildPath:(NSString *)servicePath withIdForSubPath:(NSString *)subPath;
+- (PMKPromise *)getRelationshipOfType:(Class)clazz withServicePath:(NSString *)servicePath idForSubPath:(NSString *)subPath;
+- (PMKPromise *)postRelationshipOfType:(Class)clazz withServicePath:(NSString *)servicePath idForSubPath:(NSString *)subPath;
 
 @end
 
@@ -64,6 +82,8 @@
 @property (readonly, nonatomic, strong) NSDictionary *customData;
 @property (readonly, nonatomic, strong) NSDictionary *jsonData;
 
+- (id)initWithId:(NSString *)id;
+
 - (instancetype)setCustomDataValue:(id)value forKey:(NSString *)key;
 - (instancetype)setCustomDataValuesForKeysWithDictionary:(NSDictionary *)keyedValues;
 
@@ -77,6 +97,7 @@
 
 @interface MMGRelationship : NSObject<MMGJSONSerializable>
 
+@property (readonly, nonatomic, strong) NSDate *updateTime;
 @property (readonly, nonatomic, strong) NSDictionary *customData;
 
 - (instancetype)setCustomDataValue:(id)value forKey:(NSString *)key;

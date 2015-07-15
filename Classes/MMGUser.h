@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MMGEvent.h"
 
 #define MMG_SETKEY_USER_FB_ID @"sns.fb.id"
 #define MMG_SETKEY_USER_FB_NAME @"sns.fb.name"
@@ -27,7 +28,27 @@
 - (PMKPromise *)all;
 - (PMKPromise *)tags;
 - (PMKPromise *)items;
+- (PMKPromise *)events;
 - (PMKPromise *)checkins;
+
+@end
+
+@interface MMGUserEventOperation : MMGRelationshipOperation
+
+- (instancetype)withUser:(MMGUser *)user;
+- (instancetype)withEvent:(MMGEvent *)event;
+
+- (PMKPromise *)organize;
+- (PMKPromise *)perform;
+- (PMKPromise *)participate;
+- (PMKPromise *)attend;
+
+- (PMKPromise *)organization;
+- (PMKPromise *)performance;
+- (PMKPromise *)participation;
+- (PMKPromise *)attendance;
+
+- (PMKPromise *)leaveAs:(MMGUserEventRelationshipType)relationshipType;
 
 @end
 
@@ -53,6 +74,7 @@
 - (MMGUserTagOperation *)tagOperation;
 - (PMKPromise *)queryTags;
 - (PMKPromise *)queryItems;
+- (PMKPromise *)queryEvents;
 - (PMKPromise *)queryCheckins;
 
 - (PMKPromise *)logLastLatitude:(double)latitude longitude:(double)longitude accuracy:(double)accuracy;
@@ -62,6 +84,18 @@
                               preferredLanguage:(NSString *)preferredLanguage
                                          enable:(BOOL)enable;
 - (PMKPromise *)pushNotificationEnable:(BOOL)enable;
+
+- (PMKPromise *)organizeAnEvent:(MMGEvent *)event withCustomData:(NSDictionary *)customData;
+- (PMKPromise *)performAtEvent:(MMGEvent *)event withCustomData:(NSDictionary *)customData;
+- (PMKPromise *)participateInEvent:(MMGEvent *)event withCustomData:(NSDictionary *)customData;
+- (PMKPromise *)attendAnEvent:(MMGEvent *)event withCustomData:(NSDictionary *)customData;
+
+- (PMKPromise *)organizationOfEvent:(MMGEvent *)event;
+- (PMKPromise *)performanceAtEvent:(MMGEvent *)event;
+- (PMKPromise *)participationInEvent:(MMGEvent *)event;
+- (PMKPromise *)attendanceAtEvent:(MMGEvent *)event;
+
+- (PMKPromise *)leaveEvent:(MMGEvent *)event as:(MMGUserEventRelationshipType)relationshipType;
 
 + (PMKPromise *)connectToPeer:(MMGUser *)peer;
 + (PMKPromise *)disconnectFromPeer:(MMGUser *)peer;

@@ -16,6 +16,12 @@
 
 @end
 
+@interface MMGUserEventOperation()
+
+@property (nonatomic, assign) MMGUserEventRelationshipType relationshipType;
+
+@end
+
 @implementation MMGUserTagOperation
 
 + (instancetype)operation {
@@ -71,6 +77,12 @@
     }
 }
 
+- (PMKPromise *)events {
+    return [[[MMGRelationshipOperation new]
+                                       withObject1Id:self.id]
+                                       getRelationshipOfType:[MMGUserEvent class] withServicePath:@"/users" idForSubPath:@"/events"];
+}
+
 - (PMKPromise *)checkins {
     NSString *path = [self buildPath:@"/users" withIdForSubPath:@"/checkins"];
     if (path) {
@@ -87,6 +99,81 @@
 }
 
 @end
+
+@implementation MMGUserEventOperation
+
+- (instancetype)withUser:(MMGUser *)user {
+    return [self withObject1Id:user.id];
+}
+
+- (instancetype)withEvent:(MMGEvent *)event {
+    return [self withObject2Id:event.id];
+}
+
+- (NSString *)buildPath:(NSString *)servicePath withIdForSubPath:(NSString *)subPath {
+    if (self.id1 && self.id2) {
+        return [NSString stringWithFormat:@"%@/%@%@/%@/%@", servicePath, self.id1, subPath, self.id2, [MMGUserEvent stringFromType:self.relationshipType]];
+    } else {
+        return nil;
+    }
+}
+
+- (PMKPromise *)postWithRelationshipType:(MMGUserEventRelationshipType)relationshipType {
+    self.relationshipType = relationshipType;
+    return [self postRelationshipOfType:[MMGUserEvent class] withServicePath:@"/users" idForSubPath:@"/events"];
+}
+
+- (PMKPromise *)getWithRelationshipType:(MMGUserEventRelationshipType)relationshipType {
+    self.relationshipType = relationshipType;
+    return [self getRelationshipOfType:[MMGUserEvent class] withServicePath:@"/users" idForSubPath:@"/events"];
+}
+
+- (PMKPromise *)organize {
+    return [self postWithRelationshipType:kMMGUserEventRelationshipTypeOrganizer];
+}
+
+- (PMKPromise *)perform {
+    return [self postWithRelationshipType:kMMGUserEventRelationshipTypePerformer];
+}
+
+- (PMKPromise *)participate {
+    return [self postWithRelationshipType:kMMGUserEventRelationshipTypeParticipant];
+}
+
+- (PMKPromise *)attend {
+    return [self postWithRelationshipType:kMMGUserEventRelationshipTypeAttendant];
+}
+
+- (PMKPromise *)organization {
+    return [self getWithRelationshipType:kMMGUserEventRelationshipTypeOrganizer];
+}
+
+- (PMKPromise *)performance {
+    return [self getWithRelationshipType:kMMGUserEventRelationshipTypePerformer];
+}
+
+- (PMKPromise *)participation {
+    return [self getWithRelationshipType:kMMGUserEventRelationshipTypeParticipant];
+}
+
+- (PMKPromise *)attendance {
+    return [self getWithRelationshipType:kMMGUserEventRelationshipTypeAttendant];
+}
+
+- (PMKPromise *)leaveAs:(MMGUserEventRelationshipType)relationshipType {
+    self.relationshipType = relationshipType;
+    if (self.id1 && self.id2) {
+        return [[Geocore instance] DELETE:[self buildPath:@"/users" withIdForSubPath:@"/events"]
+                               parameters:nil
+                              resultClass:[MMGUserEvent class]];
+    } else {
+        return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"id not set"}]];
+    }
+}
+
+@end
+
+
 
 @implementation MMGUser
 
@@ -176,6 +263,10 @@
     return [[[MMGUserQuery query] withId:self.id] items];
 }
 
+- (PMKPromise *)queryEvents {
+    return [[[MMGUserQuery query] withId:self.id] events];
+}
+
 - (PMKPromise *)queryCheckins {
     return [[[MMGUserQuery query] withId:self.id] checkins];
 }
@@ -241,6 +332,43 @@
         }];
     }
 }
+
+- (PMKPromise *)organizeAnEvent:(MMGEvent *)event withCustomData:(NSDictionary *)customData {
+    return [[[[[MMGUserEventOperation new] withUser:self] withEvent:event] withCustomData:customData] organize];
+}
+
+- (PMKPromise *)performAtEvent:(MMGEvent *)event withCustomData:(NSDictionary *)customData {
+    return [[[[[MMGUserEventOperation new] withUser:self] withEvent:event] withCustomData:customData] perform];
+}
+
+- (PMKPromise *)participateInEvent:(MMGEvent *)event withCustomData:(NSDictionary *)customData {
+    return [[[[[MMGUserEventOperation new] withUser:self] withEvent:event] withCustomData:customData] participate];
+}
+
+- (PMKPromise *)attendAnEvent:(MMGEvent *)event withCustomData:(NSDictionary *)customData {
+    return [[[[[MMGUserEventOperation new] withUser:self] withEvent:event] withCustomData:customData] attend];
+}
+
+- (PMKPromise *)organizationOfEvent:(MMGEvent *)event {
+    return [[[[MMGUserEventOperation new] withUser:self] withEvent:event] organization];
+}
+
+- (PMKPromise *)performanceAtEvent:(MMGEvent *)event {
+    return [[[[MMGUserEventOperation new] withUser:self] withEvent:event] performance];
+}
+
+- (PMKPromise *)participationInEvent:(MMGEvent *)event {
+    return [[[[MMGUserEventOperation new] withUser:self] withEvent:event] participation];
+}
+
+- (PMKPromise *)attendanceAtEvent:(MMGEvent *)event {
+    return [[[[MMGUserEventOperation new] withUser:self] withEvent:event] attendance];
+}
+
+- (PMKPromise *)leaveEvent:(MMGEvent *)event as:(MMGUserEventRelationshipType)relationshipType {
+    return [[[[MMGUserEventOperation new] withUser:self] withEvent:event] leaveAs:relationshipType];
+}
+
 
 + (PMKPromise *)connectToPeer:(MMGUser *)peer {
     return [[Geocore instance] POST:[NSString stringWithFormat:@"/users/connections/%@",peer.id]
@@ -337,65 +465,6 @@
 - (PMKPromise *)reject {
     return [MMGUser disconnectFromPeer:_peer];
 }
-
-/*
-{
-    "createTime": "2014/07/04 17:37:01",
-    "updateTime": null,
-    "customData": null,
-    "acceptedByUser1": true,
-    "acceptedByUser2": true,
-    "user1": {
-        "sid": 13093,
-        "id": "USE-MMGSHA-1-E9664CBF-F9CD-41AA-A4FF-EA9976561BFC",
-        "name": "Wanasit T",
-        "description": null,
-        "createTime": "2014/06/30 08:25:24",
-        "updateTime": "2014/09/11 14:18:00",
-        "upvotes": null,
-        "downvotes": null,
-        "customData": {
-            "prj.shake.ts": "1410412680244",
-            "sns.fb.id": null
-        },
-        "jsonData": null,
-        "enabled": true,
-        "email": "l3luel3erryjuice@hotmail.com",
-        "lastLocationTime": null,
-        "lastLocation": {
-            "latitude": 35.660371572941,
-            "longitude": 139.6978731602508
-        }
-    },
-    "user2": {
-        "sid": 13096,
-        "id": "USE-MMGSHA-1-0214FEBD-EBAD-4E59-A485-F69D511618A3",
-        "name": "Mamad Purbo",
-        "description": null,
-        "createTime": "2014/07/02 07:44:37",
-        "updateTime": "2014/11/11 13:04:47",
-        "upvotes": null,
-        "downvotes": null,
-        "customData": {
-            "prj.shake.ts": "1415678688851",
-            "sns.fb.id": null,
-            "push.enabled": "true",
-            "push.ios.lang": "ja",
-            "push.ios.token": "<b5e989b9 a05482c6 83daf28a db589742 ae3672be cd461e7a 6b24196e a8512d18>",
-            "push.android.token": "APA91bHvW4skkZE0G5mdI8YUpTT8jMSxVMpEkJ2YmLq_xHfsnzeJNRBEZGNGV8sBLXfNPB20FyuI52wv8mNeEA0YvwQFanOPyPpx4HncKfwNflElvA6qVnMgjp6AAzHsRmTeS-wvGhVfP5nG0l2vS0NxTibsZkAO8Q"
-        },
-        "jsonData": null,
-        "enabled": true,
-        "email": "m.purbo@gmail.com",
-        "lastLocationTime": null,
-        "lastLocation": {
-            "latitude": 35.67081954542198,
-            "longitude": 139.7239746237381
-        }
-    }
-}
-*/
-
 
 @end
 

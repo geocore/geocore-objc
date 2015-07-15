@@ -44,3 +44,13 @@
 - (PMKPromise *)post;
 
 @end
+
+@interface MMGKeyValue : NSObject<MMGJSONSerializable>
+
+@property (nonatomic, strong) NSString *key;
+@property (nonatomic, strong) NSDictionary *value;
+
++ (PMKPromise *)getWithKey:(NSString *)key;
+- (PMKPromise *)post;
+
+@end

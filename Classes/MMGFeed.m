@@ -188,3 +188,32 @@
 }
 
 @end
+
+@implementation MMGKeyValue
+
+- (instancetype)fromJSON:(NSDictionary *)jsonData {
+    self.key = [jsonData optionalValueForKey:@"id" withDefaultValue:nil];
+    self.value = [jsonData optionalValueForKey:@"objContent" withDefaultValue:[NSDictionary dictionary]];
+    return self;
+}
+
+- (NSDictionary *)toJSON {
+    if (self.value && [_value count] > 0) {
+        return [NSDictionary dictionaryWithDictionary:_value];
+    } else {
+        return [NSDictionary dictionary];
+    }
+}
+
++ (PMKPromise *)getWithKey:(NSString *)key {
+    return [[Geocore instance] GET:[NSString stringWithFormat:@"/objs/kv/%@", key] parameters:nil resultClass:[MMGKeyValue class]];
+}
+
+- (PMKPromise *)post {
+    return [[Geocore instance] POST:[NSString stringWithFormat:@"/objs/kv/%@", self.key]
+                               body:[self toJSON]
+                        resultClass:[MMGKeyValue class]];
+}
+
+@end
+

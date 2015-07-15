@@ -9,12 +9,6 @@
 #import "Geocore.h"
 #import "GeocorePrivate.h"
 
-@interface MMGObjectOperation()
-
-@property (nonatomic, strong) NSString *id;
-
-@end
-
 @interface MMGObjectQuery()
 
 @property (nonatomic, strong) NSString *name;
@@ -50,6 +44,7 @@
 
 @interface MMGRelationship()
 
+@property (readwrite, nonatomic, strong) NSDate *updateTime;
 @property (readwrite, nonatomic, strong) NSMutableDictionary *internalCustomData;
 
 @end
@@ -59,6 +54,13 @@
 - (id)init {
     if (self = [super init]) {
         self.internalCustomData = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+
+- (id)initWithId:(NSString *)id {
+    if (self = [self init]) {
+        self.id = id;
     }
     return self;
 }
@@ -149,14 +151,18 @@
 }
 
 - (instancetype)fromJSON:(NSDictionary *)jsonData {
+    self.updateTime = [[Geocore dateFormatter] dateFromOptionalString:[jsonData optionalValueForKey:@"updateTime" withDefaultValue:nil]];
     self.internalCustomData = [jsonData optionalValueForKey:@"customData" withDefaultValue:[NSMutableDictionary dictionary]];
     return self;
 }
 
 - (NSDictionary *)toJSON {
+    /*
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setOptionalValue:[self.internalCustomData count] > 0 ? self.internalCustomData : nil forKey:@"customData"];
     return [NSDictionary dictionaryWithDictionary:dict];
+    */
+    return self.internalCustomData;
 }
 
 - (NSDictionary *)customData {
@@ -203,6 +209,58 @@
 }
 
 @end
+
+@implementation MMGRelationshipOperation
+
+- (instancetype)withObject1Id:(NSString *)id {
+    self.id1 = id;
+    return self;
+}
+
+- (instancetype)withObject2Id:(NSString *)id {
+    self.id2 = id;
+    return self;
+}
+
+- (instancetype)withCustomData:(NSDictionary *)dictionary {
+    self.customData = dictionary;
+    return self;
+}
+
+- (NSString *)buildPath:(NSString *)servicePath withIdForSubPath:(NSString *)subPath {
+    if (self.id1) {
+        if (self.id2) {
+            return [NSString stringWithFormat:@"%@/%@%@/%@", servicePath, self.id1, subPath, self.id2];
+        } else {
+            return [NSString stringWithFormat:@"%@/%@%@", servicePath, self.id1, subPath];
+        }
+    } else {
+        return nil;
+    }
+}
+
+- (PMKPromise *)getRelationshipOfType:(Class)clazz withServicePath:(NSString *)servicePath idForSubPath:(NSString *)subPath {
+    // if both id1 and id2 specified, this will return a specific relationship, if only id1 specified an array of relationships will be returned.
+    NSString *path = [self buildPath:servicePath withIdForSubPath:subPath];
+    if (path) {
+        return [[Geocore instance] GET:path resultClass:clazz];
+    } else {
+        return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"id not set"}]];
+    }
+}
+
+- (PMKPromise *)postRelationshipOfType:(Class)clazz withServicePath:(NSString *)servicePath idForSubPath:(NSString *)subPath {
+    if (self.id1 && self.id2) {
+        return [[Geocore instance] POST:[self buildPath:servicePath withIdForSubPath:subPath]
+                                   body:self.customData
+                            resultClass:clazz];
+    } else {
+        return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"id not set"}]];
+    }
+}
+
+@end
+
 
 @implementation MMGObjectQuery
 
