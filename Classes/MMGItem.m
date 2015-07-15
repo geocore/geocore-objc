@@ -106,7 +106,6 @@
     }
     self.amount = [[jsonData optionalValueForKey:@"amount" withDefaultValue:@(0)] integerValue];
     self.orderNumber = [[jsonData optionalValueForKey:@"orderNumber" withDefaultValue:@(0)] integerValue];
-    self.updateTime = [[Geocore dateFormatter] dateFromOptionalString:[jsonData optionalValueForKey:@"updateTime" withDefaultValue:nil]];
     return self;
 }
 

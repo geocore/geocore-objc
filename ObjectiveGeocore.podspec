@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ObjectiveGeocore"
-  s.version          = "0.3.1"
+  s.version          = "0.3.2"
   s.summary          = "Geocore Objective-C Client API"
   s.description      = <<-DESC
                        Objective-C client library for accessing Geocore API server.
