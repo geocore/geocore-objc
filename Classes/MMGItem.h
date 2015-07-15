@@ -42,6 +42,5 @@ typedef NS_ENUM (NSUInteger, MMGItemType) {
 @property (nonatomic, strong) MMGItem *item;
 @property (nonatomic, assign, readonly) NSInteger amount;
 @property (nonatomic, assign, readonly) NSInteger orderNumber;
-@property (nonatomic, strong) NSDate *updateTime;
 
 @end
