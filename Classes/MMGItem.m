@@ -110,3 +110,58 @@
 }
 
 @end
+
+@interface MMGUserItemAmountRankingRecord()
+
+@property (nonatomic, assign, readwrite) NSInteger amount;
+@property (nonatomic, assign, readwrite) NSUInteger rank;
+@property (nonatomic, strong, readwrite) NSString *userId;
+@property (nonatomic, strong, readwrite) NSString *userName;
+
+@end
+
+@implementation MMGUserItemAmountRankingRecord
+
+- (instancetype)fromJSON:(NSDictionary *)jsonData {
+    self.amount = [[jsonData optionalValueForKey:@"amount" withDefaultValue:@(0)] integerValue];
+    self.rank = [[jsonData optionalValueForKey:@"rank" withDefaultValue:@(1)] unsignedIntegerValue];
+    self.userId = [jsonData optionalValueForKey:@"id" withDefaultValue:nil];
+    self.userName = [jsonData optionalValueForKey:@"name" withDefaultValue:nil];
+    return self;
+}
+
+- (NSDictionary *)toJSON {
+    return nil;
+}
+
+@end
+
+@interface MMGUserItemAmountRanking()
+
+@property (nonatomic, strong, readwrite) NSArray *ranking;
+@property (nonatomic, strong, readwrite) MMGUserItemAmountRankingRecord *userRanking;
+
+@end
+
+@implementation MMGUserItemAmountRanking
+
+- (instancetype)fromJSON:(NSDictionary *)jsonData {
+    NSArray *array = [jsonData optionalValueForKey:@"ranking" withDefaultValue:@[]];
+    NSMutableArray *ranking = [NSMutableArray array];
+    for (NSDictionary *raw in array) {
+        [ranking addObject:[[MMGUserItemAmountRankingRecord new] fromJSON:raw]];
+    }
+    self.ranking = ranking;
+    NSDictionary *dict = [jsonData optionalValueForKey:@"user" withDefaultValue:nil];
+    if (dict) {
+        self.userRanking = [[MMGUserItemAmountRankingRecord new] fromJSON:dict];
+    }
+    return self;
+}
+
+- (NSDictionary *)toJSON {
+    return nil;
+}
+
+@end
+

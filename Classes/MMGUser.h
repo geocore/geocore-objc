@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MMGEvent.h"
+#import "MMGItem.h"
 
 #define MMG_SETKEY_USER_FB_ID @"sns.fb.id"
 #define MMG_SETKEY_USER_FB_NAME @"sns.fb.name"
@@ -29,6 +30,7 @@
 - (PMKPromise *)tags;
 - (PMKPromise *)items;
 - (PMKPromise *)events;
+- (PMKPromise *)numberOfEventsWithCustomDataKey:(NSString *)key value:(NSString *)value;
 - (PMKPromise *)checkins;
 
 @end
@@ -49,6 +51,15 @@
 - (PMKPromise *)attendance;
 
 - (PMKPromise *)leaveAs:(MMGUserEventRelationshipType)relationshipType;
+
+@end
+
+@interface MMGUserItemOperation : MMGRelationshipOperation
+
+- (instancetype)withUser:(MMGUser *)user;
+- (instancetype)withItem:(MMGItem *)item;
+
+- (PMKPromise *)ranking;
 
 @end
 
@@ -75,6 +86,7 @@
 - (PMKPromise *)queryTags;
 - (PMKPromise *)queryItems;
 - (PMKPromise *)queryEvents;
+- (PMKPromise *)countEventsWithCustomDataKey:(NSString *)key value:(NSString *)value;
 - (PMKPromise *)queryCheckins;
 
 - (PMKPromise *)logLastLatitude:(double)latitude longitude:(double)longitude accuracy:(double)accuracy;

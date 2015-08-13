@@ -35,12 +35,27 @@ typedef NS_ENUM (NSUInteger, MMGItemType) {
 
 @end
 
-
 @interface MMGUserItem : MMGRelationship
 
 @property (nonatomic, strong) MMGUser *user;
 @property (nonatomic, strong) MMGItem *item;
 @property (nonatomic, assign, readonly) NSInteger amount;
 @property (nonatomic, assign, readonly) NSInteger orderNumber;
+
+@end
+
+@interface MMGUserItemAmountRankingRecord : NSObject<MMGJSONSerializable>
+
+@property (nonatomic, assign, readonly) NSInteger amount;
+@property (nonatomic, assign, readonly) NSUInteger rank;
+@property (nonatomic, strong, readonly) NSString *userId;
+@property (nonatomic, strong, readonly) NSString *userName;
+
+@end
+
+@interface MMGUserItemAmountRanking : NSObject<MMGJSONSerializable>
+
+@property (nonatomic, strong, readonly) NSArray *ranking;
+@property (nonatomic, strong, readonly) MMGUserItemAmountRankingRecord *userRanking;
 
 @end

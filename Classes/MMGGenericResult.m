@@ -11,7 +11,7 @@
 
 @interface MMGGenericResult()
 
-@property (readwrite, nonatomic, assign) NSDictionary *json;
+@property (readwrite, nonatomic, strong) NSDictionary *json;
 
 @end
 
@@ -34,3 +34,23 @@
 }
 
 @end
+
+@interface MMGGenericCountResult()
+
+@property (readwrite, nonatomic, assign) NSUInteger count;
+
+@end
+
+@implementation MMGGenericCountResult
+
+- (instancetype)fromJSON:(NSDictionary *)jsonData {
+    self.count = [[jsonData optionalValueForKey:@"count" withDefaultValue:@(0)] unsignedIntegerValue];
+    return self;
+}
+
+- (NSDictionary *)toJSON {
+    return nil;
+}
+
+@end
+

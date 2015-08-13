@@ -83,6 +83,17 @@
                                        getRelationshipOfType:[MMGUserEvent class] withServicePath:@"/users" idForSubPath:@"/events"];
 }
 
+- (PMKPromise *)numberOfEventsWithCustomDataKey:(NSString *)key value:(NSString *)value {
+    NSString *path = [self buildPath:@"/users" withIdForSubPath:@"/events/count"];
+    if (path) {
+        return [[Geocore instance] GET:path
+                            parameters:@{@"cust_key": key, @"cust_value": value}
+                           resultClass:[MMGGenericCountResult class]];
+    } else {
+        return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"id not set"}]];
+    }
+}
+
 - (PMKPromise *)checkins {
     NSString *path = [self buildPath:@"/users" withIdForSubPath:@"/checkins"];
     if (path) {
@@ -173,7 +184,27 @@
 
 @end
 
+@implementation MMGUserItemOperation
 
+- (instancetype)withUser:(MMGUser *)user {
+    return [self withObject1Id:user.id];
+}
+
+- (instancetype)withItem:(MMGItem *)item {
+    return [self withObject2Id:item.id];
+}
+
+- (PMKPromise *)ranking {
+    if (self.id1 && self.id2) {
+        return [[Geocore instance] GET:[NSString stringWithFormat:@"%@/amount/ranking", [self buildPath:@"/users" withIdForSubPath:@"/items"]]
+                            parameters:nil
+                           resultClass:[MMGUserItemAmountRanking class]];
+    } else {
+        return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"id not set"}]];
+    }
+}
+
+@end
 
 @implementation MMGUser
 
@@ -265,6 +296,10 @@
 
 - (PMKPromise *)queryEvents {
     return [[[MMGUserQuery query] withId:self.id] events];
+}
+
+- (PMKPromise *)countEventsWithCustomDataKey:(NSString *)key value:(NSString *)value {
+    return [[[MMGUserQuery query] withId:self.id] numberOfEventsWithCustomDataKey:key value:value];
 }
 
 - (PMKPromise *)queryCheckins {

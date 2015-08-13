@@ -10,6 +10,12 @@
 
 @interface MMGGenericResult : NSObject<MMGJSONSerializable>
 
-@property (readonly, nonatomic, assign) NSDictionary *json;
+@property (readonly, nonatomic, strong) NSDictionary *json;
+
+@end
+
+@interface MMGGenericCountResult : NSObject<MMGJSONSerializable>
+
+@property (readonly, nonatomic, assign) NSUInteger count;
 
 @end
