@@ -30,6 +30,7 @@
 - (PMKPromise *)tags;
 - (PMKPromise *)items;
 - (PMKPromise *)events;
+- (PMKPromise *)connections;
 - (PMKPromise *)numberOfEventsWithCustomDataKey:(NSString *)key value:(NSString *)value;
 - (PMKPromise *)checkins;
 

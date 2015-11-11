@@ -113,6 +113,10 @@
                        resultClass:[MMGTag class]];
 }
 
+- (PMKPromise *)lastUpdate {
+    return [super lastUpdateForServicePath:@"/tags"];
+}
+
 @end
 
 @implementation MMGTaggable

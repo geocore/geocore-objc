@@ -337,6 +337,14 @@
     return [self getObjectOfType:[MMGObject class] withServicePath:@"/objs"];
 }
 
+- (PMKPromise *)lastUpdateForServicePath:(NSString *)servicePath {
+    return [[Geocore instance] GET:[NSString stringWithFormat:@"%@/lastUpdate", servicePath]
+                       resultClass:[MMGGenericResult class]].then(^PMKPromise *(MMGGenericResult *result) {
+        return [PMKPromise promiseWithValue:[[Geocore dateFormatter] dateFromOptionalString:[result.json optionalValueForKey:@"lastUpdate"
+                                                                                                            withDefaultValue:nil]]];
+    });
+}
+
 @end
 
 @implementation MMGObjectBinaryOperation

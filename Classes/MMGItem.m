@@ -21,6 +21,10 @@
                        resultClass:[MMGItem class]];
 }
 
+- (PMKPromise *)lastUpdate {
+    return [super lastUpdateForServicePath:@"/items"];
+}
+
 @end
 
 @implementation MMGItem

@@ -30,6 +30,7 @@ typedef NS_ENUM (NSUInteger, MMGUserEventRelationshipType) {
 
 + (instancetype)query;
 - (PMKPromise *)all;
+- (PMKPromise *)lastUpdate;
 
 @end
 

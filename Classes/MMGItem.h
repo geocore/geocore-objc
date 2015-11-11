@@ -18,6 +18,7 @@ typedef NS_ENUM (NSUInteger, MMGItemType) {
 
 + (instancetype)query;
 - (PMKPromise *)all;
+- (PMKPromise *)lastUpdate;
 
 @end
 

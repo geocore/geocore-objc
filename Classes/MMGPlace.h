@@ -16,6 +16,7 @@
 - (PMKPromise *)all;
 - (PMKPromise *)events;
 - (PMKPromise *)eventRelationships;
+- (PMKPromise *)lastUpdate;
 
 @end
 

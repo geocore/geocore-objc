@@ -43,6 +43,10 @@
     }
 }
 
+- (PMKPromise *)lastUpdate {
+    return [super lastUpdateForServicePath:@"/places"];
+}
+
 @end
 
 @implementation MMGPlace

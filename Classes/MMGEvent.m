@@ -21,6 +21,10 @@
                        resultClass:[MMGEvent class]];
 }
 
+- (PMKPromise *)lastUpdate {
+    return [super lastUpdateForServicePath:@"/events"];
+}
+
 @end
 
 @implementation MMGEvent

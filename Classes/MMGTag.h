@@ -35,6 +35,7 @@ typedef NS_ENUM (NSUInteger, MMGTagType) {
 
 + (instancetype)query;
 - (PMKPromise *)all;
+- (PMKPromise *)lastUpdate;
 
 @end
 

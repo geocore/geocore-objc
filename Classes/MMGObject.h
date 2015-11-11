@@ -49,6 +49,7 @@
 
 - (PMKPromise *)getObjectOfType:(Class)clazz withServicePath:(NSString *)servicePath;
 - (PMKPromise *)get;
+- (PMKPromise *)lastUpdateForServicePath:(NSString *)servicePath;
 
 @end
 

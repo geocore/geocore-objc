@@ -83,6 +83,17 @@
                                        getRelationshipOfType:[MMGUserEvent class] withServicePath:@"/users" idForSubPath:@"/events"];
 }
 
+- (PMKPromise *)connections {
+    NSString *path = [self buildPath:@"/users" withIdForSubPath:@"/relationships"];
+    if (path) {
+        return [[Geocore instance] GET:path
+                            parameters:nil
+                           resultClass:[MMGUserConnection class]];
+    } else {
+        return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"id not set"}]];
+    }
+}
+
 - (PMKPromise *)numberOfEventsWithCustomDataKey:(NSString *)key value:(NSString *)value {
     NSString *path = [self buildPath:@"/users" withIdForSubPath:@"/events/count"];
     if (path) {
@@ -403,7 +414,6 @@
 - (PMKPromise *)leaveEvent:(MMGEvent *)event as:(MMGUserEventRelationshipType)relationshipType {
     return [[[[MMGUserEventOperation new] withUser:self] withEvent:event] leaveAs:relationshipType];
 }
-
 
 + (PMKPromise *)connectToPeer:(MMGUser *)peer {
     return [[Geocore instance] POST:[NSString stringWithFormat:@"/users/connections/%@",peer.id]
