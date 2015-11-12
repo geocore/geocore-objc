@@ -88,7 +88,32 @@
     if (path) {
         return [[Geocore instance] GET:path
                             parameters:nil
-                           resultClass:[MMGUserConnection class]];
+                           resultClass:[MMGUserConnection class]
+                            preProcess:^id(id obj) {
+                                // patch data so the specified user id can be passed to JSON conversion
+                                if ([obj isKindOfClass:[NSDictionary class]] &&
+                                        [(NSDictionary *)obj objectForKey:@"status"] &&
+                                        [[(NSDictionary *)obj objectForKey:@"status"] isEqualToString:@"success"] &&
+                                        [(NSDictionary *)obj objectForKey:@"result"] &&
+                                        [[(NSDictionary *)obj objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
+                                    NSMutableDictionary *ret = [NSMutableDictionary dictionary];
+                                    [ret setObject:@"success" forKey:@"status"];
+                                    NSMutableArray *records = [NSMutableArray array];
+                                    NSArray *sourceRecords = [(NSDictionary *)obj objectForKey:@"result"];
+                                    for (NSDictionary *sourceRecord in sourceRecords) {
+                                        NSMutableDictionary *record = [NSMutableDictionary dictionaryWithDictionary:sourceRecord];
+                                        [record setObject:self.id forKey:@"userId"];
+                                        [records addObject:record];
+                                    }
+                                    [ret setObject:records forKey:@"result"];
+                                    return ret;
+                                } else {
+                                    //NSLog(@"Unexpected object type: %@, expecting NSDictionary", [obj class]);
+                                    MMG_DEBUG(@"Unexpected data (or error): %@, expecting user-user relationship result", obj)
+                                    return obj;
+                                }
+                            }
+                           postProcess:nil];
     } else {
         return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"id not set"}]];
     }
@@ -480,10 +505,12 @@
 - (instancetype)fromJSON:(NSDictionary *)jsonData {
     [super fromJSON:jsonData];
     
+    NSString *requestedUserId = [jsonData valueForKey:@"userId"];
+    
     MMGUser *user1 = [[MMGUser new] fromJSON:[jsonData valueForKey:@"user1"]];
     MMGUser *user2 = [[MMGUser new] fromJSON:[jsonData valueForKey:@"user2"]];
     
-    NSString *currentUserId = [Geocore instance].user.id;
+    NSString *currentUserId = requestedUserId ? requestedUserId : [Geocore instance].user.id;
     if ([currentUserId isEqualToString:user1.id]) {
         self.peer = user2;
         self.accepted = [[jsonData valueForKey:@"acceptedByUser1"] boolValue];
