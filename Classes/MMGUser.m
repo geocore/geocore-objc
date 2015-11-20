@@ -119,6 +119,17 @@
     }
 }
 
+- (PMKPromise *)eventsWithCustomDataKey:(NSString *)key value:(NSString *)value {
+    NSString *path = [self buildPath:@"/users" withIdForSubPath:@"/events"];
+    if (path) {
+        return [[Geocore instance] GET:path
+                            parameters:@{@"cust_key": key, @"cust_value": value}
+                           resultClass:[MMGUserEvent class]];
+    } else {
+        return [PMKPromise promiseWithValue:[NSError errorWithDomain:MMGErrorDomain code:kMMGErrorInvalidParameter userInfo:@{@"message": @"id not set"}]];
+    }
+}
+
 - (PMKPromise *)numberOfEventsWithCustomDataKey:(NSString *)key value:(NSString *)value {
     NSString *path = [self buildPath:@"/users" withIdForSubPath:@"/events/count"];
     if (path) {
